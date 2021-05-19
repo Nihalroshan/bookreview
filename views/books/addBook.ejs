@@ -1,6 +1,7 @@
 <h4>Add new Book</h4>
-<form class="" action="/books" method="POST"></form>
-<% if(locals.errorMessage != null){ %> <%= errorMessage %> <% } %> <%-
-include('../partials/_form_for_book.ejs') %>
+<form class="" action="/books" method="POST">
+<% if(locals.errorMessage != null){ %> <%= errorMessage %> <% } %> 
+
+<%-include('../partials/_form_for_book.ejs') %>
 <button class="btn btn-primary" type="submit">Create</button>
 </form>
