@@ -1,0 +1,6 @@
+<h4>Edit Book</h4>
+<form class="" action="/books/<%= book.id %>?_method=PUT " method="POST">
+<% if(locals.errorMessage != null){ %> <%= errorMessage %> <% } %> <%-
+include('../partials/_form_for_book.ejs') %>
+<button class="btn btn-primary" type="submit">Update</button>
+</form>

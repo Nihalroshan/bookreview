@@ -1,25 +1,39 @@
-
-<form action="/books" method="GET" class="d-flex" style="justify-content: center;">
+<form
+  action="/books"
+  method="GET"
+  class="d-flex"
+  style="justify-content: center"
+>
   <input
     name="title"
     class="form-control me-sm-2"
     type="text"
     placeholder="Search"
-    style="width: 40rem;"
+    style="width: 40rem"
   />
-  <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+  <button
+    class="btn my-2 my-sm-0"
+    style="background-color: #e2b616"
+    type="submit"
+  >
+    Search
+  </button>
 </form>
-
 
 <div class="row py-5">
   <% books.forEach(book => { %>
   <div class="col-md-2">
     <div class="card">
-      <img style="height: 230px;" src="<%= book.coverUrl %>" class="card-img-top"  />
+      <img
+        style="height: 230px"
+        src="<%= book.coverUrl %>"
+        class="card-img-top"
+      />
       <div class="card-body">
-        <p class="card-title"><%= book.title %></p>
-        <p>⭐ 8.9</p>
-        <a href="#" class="btn btn-primary d-block">Know More</a>
+        <p class="card-title" style="height: 8vh"><%= book.title %></p>
+        <a href="/books/<%= book.id %> " class="btn btn-primary d-block"
+          >Know More</a
+        >
       </div>
     </div>
   </div>
