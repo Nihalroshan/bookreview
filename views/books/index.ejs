@@ -1,28 +1,63 @@
+<script>
+  function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  }
+
+  async function getBooks(e) {
+    const list = document.getElementById("auto-complete");
+    const search = e.target.value;
+    const books = await fetch(
+      `http://localhost:3000/api/auto-complete?search=${search}`
+    ).then((res) => res.json());
+
+    removeAllChildNodes(list);
+
+    books.forEach((book) => {
+      const a = document.createElement("a");
+      const li = document.createElement("li").appendChild(a);
+      li.className = "list-group-item";
+      li.textContent = book.title;
+      li.href = `/books/${book._id}`;
+      list.appendChild(li);
+    });
+  }
+</script>
+
 <form
   action="/books"
   method="GET"
   class="d-flex"
-  style="justify-content: center"
+  style="justify-content: center; position: relative"
 >
   <input
+    id="search"
+    oninput="getBooks(event)"
     name="title"
     class="form-control me-sm-2"
     type="text"
     placeholder="Search"
     style="width: 40rem"
   />
-  <button
-    class="btn my-2 my-sm-0"
-    style="background-color: #e2b616"
-    type="submit"
-  >
-    Search
-  </button>
+  <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+  <ul
+    id="auto-complete"
+    class="list-group"
+    style="
+      position: absolute;
+      top: 36.5px;
+      left: 200px;
+      width: 638px;
+      z-index: 2;
+      width: 40rem;
+    "
+  ></ul>
 </form>
 
 <div class="row py-5">
   <% books.forEach(book => { %>
-  <div class="col-md-2">
+  <div class="col-md-2 my-2">
     <div class="card">
       <img
         style="height: 230px"
@@ -31,8 +66,8 @@
       />
       <div class="card-body">
         <p class="card-title" style="height: 8vh"><%= book.title %></p>
-        <a href="/books/<%= book.id %> " class="btn btn-primary d-block"
-          >Know More</a
+        <a href="/books/<%= book.id %> " class="btn btn-outline-success d-block"
+          >View</a
         >
       </div>
     </div>

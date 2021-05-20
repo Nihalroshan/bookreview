@@ -1,0 +1,15 @@
+<h3>Login</h3>
+<form action="/users/login" method="POST">
+<% if(locals.errorMessage != null){ %>
+     <%= errorMessage %>
+<% } %> 
+<label for="">Email</label>
+<input type="email" name="email" >
+<label for="">Password</label>
+<input type="password" name="password" >
+<button type="submit">Login</button>
+<div class="nav-item"><a href="/users/register" class="nav-link">Don't have a account,Register</a></div>
+</form>
+
+
+

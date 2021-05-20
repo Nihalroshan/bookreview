@@ -1,3 +1,4 @@
 node_modules
 .env
-Users
+
+seed.js

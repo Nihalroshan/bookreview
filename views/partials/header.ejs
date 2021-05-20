@@ -5,12 +5,35 @@
       <div class="mr-auto ml-5">
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a class="nav-link" href="/books">Books</a></li>
+          
+          <% if(user){ %> 
           <li class="nav-item">
             <a class="nav-link" href="/books/add">Add Books</a>
           </li>
+          <% } %> 
           <li class="nav-item">
             <a class="nav-link" href="/books/genres">Genres</a>
           </li>
+        </ul>
+      </div>
+      <div class="ml-auto">
+        <ul class="navbar-nav">
+          <% if(user){ %>
+            <div class="dropdown show">
+              <a class="btn btn-outline-info" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= user.name%>
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+             
+                <a class="dropdown-item" href="/users/logout">Logout</a>
+               
+              </div>
+            </div>
+          <% }else{ %>   
+            
+            <div class="nav-item"><a href="/users/login" class="nav-link">Sign In</a></div>
+          <% } %> 
         </ul>
       </div>
     </div>
