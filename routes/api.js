@@ -8,7 +8,7 @@ router.get("/auto-complete", async (req, res) => {
     if (req.query.search !== null && req.query.search !== "") {
         const reg = new RegExp(req.query.search, "i");
         books = await Book.find({
-            $or: [{ title: reg }, { genre: reg }, { author: reg }],
+            $or: [{ title: reg }, { genre: reg }, { author: reg },{language:reg}],
         });
     }
     res.send(books);

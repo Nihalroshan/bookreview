@@ -1,0 +1,56 @@
+body{
+    font-family: 'Lora', serif;
+}
+.auto-complete-img {
+    width: 40px;
+    height: 40px;
+}
+
+.auto-complete-text {
+    margin: 0 !important;
+}
+
+
+.comment-input{
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    
+}
+
+#comment{
+    width: 60rem;
+    background-color: #222222;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+
+}
+
+.comment-card{
+    /* border-radius: 10px; */
+   /* position: relative; */
+   background: rgba(17, 16, 16, 0.6);
+    /* box-shadow: 0 5px 15px rgba(0,0,0,.5); */
+   padding: 20px;
+   margin: 10px;
+
+}
+
+.comment-card h6{
+    color: #484b4f;
+}
+
+.like-heart{
+    float: right;
+}
+
+.fa-heart{
+    color: #67b943;
+}
+
+.fa-comment{
+    color: #67b943;
+    
+}
+

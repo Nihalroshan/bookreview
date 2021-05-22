@@ -1,17 +1,29 @@
-<h3>Sign Up</h3>
-<form action="/users/register" method="POST">
-<% if(locals.errorMessage != null){ %>
-     <%= errorMessage %>
-<% } %> 
+<div class="container">
 
-<label for="">Name</label>
-<input type="text" name="name" >
-<label for="">Email</label>
-<input type="email" name="email" >
-<label for="">Password</label>
-<input type="password" name="password" >
-<button type="submit">Register</button>
-<div class="nav-item"><a href="/users/login" class="nav-link">Already registered,Login</a></div>
+  <form action="/users/register" method="POST">
+    <div class="row" style="display:flex; justify-content: center;margin-top: 8rem;">
+      <div class="col-md-4 col-md-offset-4 " >
+          <h1 class="text-center">Register</h1>
+          <% if(locals.errorMessage != null){ %> <%= errorMessage %> <% } %>
+          <!-- <label for="">Name</label> -->
+          <div class="form-group">
+              <input type="text" name="name" class="form-control" placeholder="Enter Name" required autofocus>
+          </div>
+          <div class="form-group">
+            <!-- <label for="">Email</label> -->
+              <input type="email" name="email" class="form-control" placeholder="Enter Email" required autofocus>
+          </div>
+          <div class="form-group">
+            <!-- <label for="">Password</label> -->
+              <input type="password" name="password" class="form-control" placeholder="Enter Password" required autofocus>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+           <a href="/users/login" class="nav-link text-center">Already registered,Login</a>
+
+         </div>
+      </div>
+  </div>
+</div>
 
 
-</form>

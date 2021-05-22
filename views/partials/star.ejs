@@ -1,0 +1,96 @@
+<style>
+  .rating {
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  .rating li {
+    list-style-type: none;
+  }
+
+  .rating-item {
+    /* border: 1px solid #fff; */
+    cursor: pointer;
+    font-size: 2em;
+    color: #ffd700;
+  }
+
+  /* initial: make all stars full */
+  .rating-item::before {
+    content: "\2605";
+  }
+
+  /* make until the clicked star (the rest) empty */
+  .rating-item.active ~ .rating-item::before {
+    content: "\2606";
+  }
+
+  /* on hover make all full */
+  .rating:hover .rating-item::before {
+    content: "\2605";
+  }
+
+  /* make until the hovered (the rest) empty */
+  .rating-item:hover ~ .rating-item::before {
+    content: "\2606";
+  }
+</style>
+<% if(user){ %> 
+<ul id="<%= book.id %>" class="rating">
+  <% let rate; %> 
+  <% let query =book.rating.find(r=> r.user == user._id) ; %> 
+  <% if(query){ %>   
+    <%  rate = query.rate  %> 
+  <% }else{%>
+    <li class="rating-item active " style="display: none;"></li>
+    <% } %> 
+
+    <% for(let i=1;i<6;i++){ %> 
+    <li class="rating-item <%= rate == i ? "active":"" %>"  data-rate="<%= i %> "></li>
+    <% } %> 
+</ul>
+<% } %> 
+
+
+<script>
+  const container = document.querySelector(".rating");
+  const items = container.querySelectorAll(".rating-item");
+  const bookId = container.id;
+
+  container.onclick = async (e) => {
+    const starCount = e.target.getAttribute("data-rate");
+    const data = await fetch(
+      `http://localhost:3000/books/rate/${bookId}?star=${starCount}`,
+      {
+        method: "post",
+      }
+    );
+    if (data.status == 200) {
+      // change the rating if the user clicks on a different star
+
+      const elClass = e.target.classList;
+
+      if (!elClass.contains("active")) {
+        items.forEach(
+          // reset the active class on the star
+          (item) => item.classList.remove("active")
+        );
+        elClass.add("active"); // add active class to the clicked star
+      }
+    }
+  };
+
+  async function like(comment) {
+    const id = comment.name;
+    const data = await fetch(`http://localhost:3000/books/rate/${id}`, {
+      method: "post",
+    });
+    const no = document.getElementById(id);
+    if (data.status == 200) {
+      no.textContent = parseInt(no.textContent) + 1;
+    } else if (data.status == 101) {
+      no.textContent = parseInt(no.textContent) - 1;
+    }
+  }
+</script>

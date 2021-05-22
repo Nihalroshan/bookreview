@@ -1,15 +1,24 @@
-<h3>Login</h3>
-<form action="/users/login" method="POST">
-<% if(locals.errorMessage != null){ %>
-     <%= errorMessage %>
-<% } %> 
-<label for="">Email</label>
-<input type="email" name="email" >
-<label for="">Password</label>
-<input type="password" name="password" >
-<button type="submit">Login</button>
-<div class="nav-item"><a href="/users/register" class="nav-link">Don't have a account,Register</a></div>
-</form>
-
-
+<div class="container">
+  <form class="form-group" action="/users/login" method="POST">
+     <div class="row" style="display:flex; justify-content: center;margin-top: 8rem;">
+          <div class="col-md-4 col-md-offset-4 " >
+              <h1 class="text-center">Login</h1>
+              <% if(locals.errorMessage != null){ %> <%= errorMessage %> <% } %>
+              <!-- <label for="">Email</label> -->
+              <div class="form-group">
+                  <input type="email" name="email" class="form-control" placeholder="Enter Email" required autofocus>
+              </div>
+              <div class="form-group">
+                  <input type="password" name="password" class="form-control" placeholder="Enter Password" required autofocus>
+              </div>
+              <div class="form-group">
+                   <button type="submit" class="btn btn-primary btn-block">Login</button>
+               <a href="/users/register" class="nav-link text-center"
+                 >Don't have a account,Register</a
+               >
+             </div>
+          </div>
+      </div>
+     </form>
+</div>
 

@@ -39,6 +39,10 @@ const bookSchema = new mongoose.Schema({
   getBook: {
     type: String,
   },
+  rating:[{
+    user: mongoose.Schema.Types.ObjectId,
+    rate: Number,
+  }]
 });
 
 module.exports = mongoose.model("Book", bookSchema);
