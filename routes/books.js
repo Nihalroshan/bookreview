@@ -3,42 +3,34 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/book");
 const Comment = require("../models/comment");
+const auth = require('../middlewares/auth');
 
 //Get all books
 router.get("/", async (req, res) => {
   let books = [];
 
-  try {
-    if (req.query.search !== null && req.query.search !== "") {
-      const reg = new RegExp(req.query.search, "i");
-      books = await Book.find({
-        $or: [
-          { title: reg },
-          { genre: reg },
-          { author: reg },
-          { language: reg },
-        ],
-      });
-    }
+  if (req.query.search !== null && req.query.search !== "") {
+    const reg = new RegExp(req.query.search, "i");
+    books = await Book.find({
+      $or: [{ title: reg }, { genre: reg }, { author: reg }, { language: reg }],
+    });
     let user = req.session.user;
     res.render("books/index", {
       books: books,
       user: user,
       searchOptions: req.query,
     });
-  } catch {
-    res.redirect("/");
+  }else{
+    res.redirect('/books')
   }
 });
 
 //new book
-router.get("/add", (req, res) => {
+router.get("/add",[auth], (req, res) => {
   let user = req.session.user;
-  if (!user) {
-    return res.redirect("/users/login");
-  }
   res.render("books/addBook", { book: new Book(), user: user });
 });
+  
 
 //Create a book
 router.post("/", async (req, res) => {
@@ -92,8 +84,8 @@ router.post("/:id", async (req, res) => {
 
 router.post("/like/:id", async (req, res) => {
   const comment = await Comment.findById(req.params.id);
-  if(!req.session.user){
-    return 
+  if (!req.session.user) {
+    return;
   }
   const user = comment.likes.find((u) => u == req.session.user._id);
   if (user) {
@@ -110,7 +102,7 @@ router.post("/like/:id", async (req, res) => {
 router.post("/rate/:id", async (req, res) => {
   const book = await Book.findById(req.params.id);
   let rating = book.rating.find((u) => u.user == req.session.user._id);
- 
+
   if (rating) {
     const index = book.rating.indexOf(rating);
     book.rating[index].rate = req.query.star;
@@ -139,22 +131,20 @@ router.get("/:id", async (req, res) => {
       comments: comments,
     });
   } catch {
-    redirect("/books");
+    res.redirect("/books");
   }
 });
 
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit",[auth], async (req, res) => {
   try {
     let user = req.session.user;
-    if (!user) {
-      return res.redirect("/users/login");
-    }
     const book = await Book.findById(req.params.id);
     res.render("books/editBook", { book: book, user: user });
   } catch {
     res.redirect("/books");
   }
 });
+   
 
 router.put("/:id", async (req, res) => {
   try {
