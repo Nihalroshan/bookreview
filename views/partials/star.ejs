@@ -81,16 +81,5 @@
     }
   };
 
-  async function like(comment) {
-    const id = comment.name;
-    const data = await fetch(`http://localhost:3000/books/rate/${id}`, {
-      method: "post",
-    });
-    const no = document.getElementById(id);
-    if (data.status == 200) {
-      no.textContent = parseInt(no.textContent) + 1;
-    } else if (data.status == 101) {
-      no.textContent = parseInt(no.textContent) - 1;
-    }
-  }
+ 
 </script>
