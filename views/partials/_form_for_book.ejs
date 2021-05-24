@@ -97,15 +97,9 @@
       <div class="form-group">
         <label>Genre</label>
         <select name="genre" class="form-control" >
-         
-          <option>Fantasy</option>
-          <option>Romance</option>
-          <option>Mystery</option>
-          <option>Thrillers</option>
-          <option>Young adult</option>
-          <option>Children’s fiction</option>
-          <option>Inspirational, self-help, and religious books</option>
-          <option>Biography, autobiography, and memoir</option>
+         <% genres.forEach(genre=>{ %> 
+            <option value="<%= genre.name %>"><%= genre.name %> </option>
+         <% }) %> 
         </select>
       </div>
     </div>

@@ -2,49 +2,12 @@
 <br />
 <div class="container">
   <ul class="list-group">
+    <% genres.forEach(genre=>{ %>
     <li
       class="list-group-item d-flex justify-content-between align-items-center"
     >
-      <a href="/books/genres/fantasy"> Fantasy</a>
+      <a href="/books/genres/<%= genre.name.toLowerCase() %>"> <%= genre.name %> </a>
     </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/romance">Romance</a>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/mystery">Mystery</a>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/thrillers">Thrillers</a>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/young"> Young adult</a>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/children">Children’s fiction</a>
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/inspirational">
-        Inspirational, self-help, and religious books</a
-      >
-    </li>
-    <li
-      class="list-group-item d-flex justify-content-between align-items-center"
-    >
-      <a href="/books/genres/biography">
-        Biography, autobiography, and memoir</a
-      >
-    </li>
+    <% }) %> 
   </ul>
 </div>

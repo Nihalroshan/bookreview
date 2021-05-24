@@ -60,7 +60,7 @@
   container.onclick = async (e) => {
     const starCount = e.target.getAttribute("data-rate");
     const data = await fetch(
-      `http://localhost:3000/books/rate/${bookId}?star=${starCount}`,
+      `${window.location.origin}/books/rate/${bookId}?star=${starCount}`,
       {
         method: "post",
       }

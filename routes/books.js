@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/book");
 const Comment = require("../models/comment");
+const Genre = require("../models/genre");
 const auth = require("../middlewares/auth");
 
 //Get all books
@@ -35,9 +36,10 @@ router.get("/", async (req, res) => {
 });
 
 //new book
-router.get("/add", [auth], (req, res) => {
+router.get("/add", [auth], async(req, res) => {
   let user = req.session.user;
-  res.render("books/addBook", { book: new Book(), user: user });
+  const genres = await Genre.find()
+  res.render("books/addBook", { book: new Book(), user: user ,genres:genres});
 });
 
 //Create a book
@@ -65,9 +67,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/genres", (req, res) => {
+router.get("/genres", async(req, res) => {
   let user = req.session.user;
-  res.render("books/genres", { book: new Book(), user: user });
+  const genres = await Genre.find()
+  res.render("books/genres", { book: new Book(), user: user ,genres:genres });
 });
 
 router.get("/genres/:genre", async (req, res) => {

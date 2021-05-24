@@ -92,7 +92,7 @@
 <script>
   async function like(comment) {
     const id = comment.name;
-    const response = await fetch(`http://localhost:3000/books/like/${id}`, {
+    const response = await fetch(`${window.location.origin}/books/like/${id}`, {
       method: "post",
     });
     const no = document.getElementById(id);

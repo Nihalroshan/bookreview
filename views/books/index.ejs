@@ -11,7 +11,7 @@
     console.log(by);
     const search = e.target.value;
     const books = await fetch(
-      `http://localhost:3000/api/auto-complete?search=${search}&by=${by}`
+      `${window.location.origin}/api/auto-complete?search=${search}&by=${by}`
     ).then((res) => res.json());
 
     removeAllChildNodes(list);
