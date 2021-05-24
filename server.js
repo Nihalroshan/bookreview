@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
 app.use(methodOverride("_method"));
 app.use(
   session({
-    secret: "key",
+    secret: process.env.SECRET_KEY,
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: null },
@@ -45,4 +45,4 @@ app.use("/books", bookRouter);
 app.use("/users", userRouter);
 app.use("/api", api);
 
-app.listen(process.env.PORT || 3000, () => console.log("Server started"));
+app.listen(process.env.PORT || 3000,() => console.log("Server started"));
