@@ -36,7 +36,7 @@
   }
 </style>
 <% if(user){ %> 
-<ul id="<%= book.id %>" class="rating">
+<ul id="<%= book.id %>" class="rating" >
   <% let rate; %> 
   <% let query =book.rating.find(r=> r.user == user._id) ; %> 
   <% if(query){ %>   
@@ -54,10 +54,11 @@
 
 <script>
   const container = document.querySelector(".rating");
-  const items = container.querySelectorAll(".rating-item");
-  const bookId = container.id;
-
+  
+  if(container){
   container.onclick = async (e) => {
+    const bookId = container.id;
+    const items = container.querySelectorAll(".rating-item");
     const starCount = e.target.getAttribute("data-rate");
     const data = await fetch(
       `${window.location.origin}/books/rate/${bookId}?star=${starCount}`,
@@ -78,7 +79,9 @@
         elClass.add("active"); // add active class to the clicked star
       }
     }
-  };
+  }
+  }
 
- 
 </script>
+
+

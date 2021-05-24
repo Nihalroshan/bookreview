@@ -82,11 +82,15 @@
     <% books.forEach(book => { %>
     <div class="col-md-2 my-2">
       <div class="card" style="border-radius: 0">
+        <% if(book.coverUrl){ %>
         <img
           style="height: 230px; border-radius: 0"
           src="<%= book.coverUrl %>"
           class="card-img-top"
         />
+        <% }else{ %>
+        <img src="/public/images/def.png" />
+        <% } %>
         <div class="card-body">
           <p class="card-title" style="height: 8vh"><%= book.title %></p>
 
