@@ -11,9 +11,10 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
   let user = await User.findOne({ email: req.body.email });
   if (user) {
-    return res
-      .status(400)
-      .render("users/register", { errorMessage: "User already registered" ,user:null});
+    return res.status(400).render("users/register", {
+      errorMessage: "User already registered",
+      user: null,
+    });
   }
   user = new User({
     name: req.body.name,
@@ -26,7 +27,10 @@ router.post("/register", async (req, res) => {
     req.session.user = newUser;
     res.redirect("/books");
   } catch {
-    res.render("users/register", { errorMessage: "Error creating user",user:null });
+    res.render("users/register", {
+      errorMessage: "Error creating user",
+      user: null,
+    });
   }
 });
 
@@ -41,13 +45,18 @@ router.post("/login", async (req, res) => {
     password: md5(req.body.password),
   });
   if (!user) {
-    return res
-      .status(400)
-      .render("users/login", { errorMessage: "No user found", user: user });
+    return res.status(400).render("users/login", {
+      errorMessage: "No user found",
+      user: user,
+    });
   }
   req.session.loggedIn = true;
   req.session.user = user;
-  res.redirect("/books");
+  if (req.session.from) {
+    res.redirect(req.session.from);
+  } else {
+    res.redirect("/books");
+  }
 });
 
 router.get("/logout", (req, res) => {

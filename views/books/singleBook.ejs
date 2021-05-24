@@ -47,7 +47,7 @@
   <br />
   <br />
   <hr />
-  <h4> <i class="fas fa-comment"></i>   Comments</h4>
+  <h4><i class="fas fa-comment"></i> Comments</h4>
 
   <% if(user){ %>
   <div class="comment-input d-flex justify-content-center">
@@ -58,34 +58,53 @@
         name="comment"
         placeholder="Post a Comment"
         required
+        style="color: aliceblue"
       />
-      <button class="btn btn-dark" style="color: #67b943;" type="submit">Submit</button>
+      <button class="btn btn-dark" style="color: #67b943" type="submit">
+        Submit
+      </button>
     </form>
   </div>
   <% } %> <% comments.forEach(comment=>{ %>
   <div class="comment-card">
     <div class="like-heart">
-
-      <a name="<%= comment._id %>" onclick="like(this)"><i class="far fa-heart"></i></a>
+      <a name="<%= comment._id %>" onclick="like(this)"
+        ><i class="far fa-heart"></i
+      ></a>
       <p class="" id="<%= comment._id %>"><%= comment.likes.length %></p>
     </div>
     <h6><%= comment.userId.name %></h6>
     <p><%= comment.comment %></p>
-    
+    <% if(user){ %> <% if(user._id == comment.userId.id) {%>
+    <form
+      class="left"
+      method="POST"
+      action="/books/comment/<%= comment._id %>?_method=DELETE"
+    >
+      <button type="submit" class="btn">
+        <i class="fas fa-trash-alt c-delete"></i>
+      </button>
+    </form>
+    <% } %> <% } %>
   </div>
   <% }) %>
 </div>
 <script>
   async function like(comment) {
     const id = comment.name;
-    const data = await fetch(`http://localhost:3000/books/like/${id}`, {
+    const response = await fetch(`http://localhost:3000/books/like/${id}`, {
       method: "post",
     });
     const no = document.getElementById(id);
-    if (data.status == 200) {
-      no.textContent = parseInt(no.textContent) + 1;
-    } else if (data.status == 101) {
-      no.textContent = parseInt(no.textContent) - 1;
+    if (response.status === 200) {
+      const data = await response.json();
+      if (data.action == "liked") {
+        no.textContent = parseInt(no.textContent) + 1;
+      } else if (data.action == "removed") {
+        no.textContent = parseInt(no.textContent) - 1;
+      }
+    } else {
+      document.location.href = "/users/login";
     }
   }
 </script>

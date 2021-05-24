@@ -1,55 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <div class="navbar-brand">
+      <a href="/"
+        ><img
+          src="/public/images/logo1.png"
+          alt=""
+          srcset=""
+          style="width: 70px"
+      /></a>
+      <h6 style="margin-left: 18px; color: #00bc8c; font-size: 13px">Briefs</h6>
+    </div>
 
- 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">BookBriefs</a>
-        <div class="mr-auto ml-5">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/books">Books</a>
-            </li>
+    <div class="mr-auto ml-5">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/books">Books</a>
+        </li>
 
-            <% if(user){ %>
-            <li class="nav-item">
-              <a class="nav-link" href="/books/add">Add Books</a>
-            </li>
-            <% } %>
-            <li class="nav-item">
-              <a class="nav-link" href="/books/genres">Genres</a>
-            </li>
-          </ul>
+        <% if(user){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/books/add">Add Books</a>
+        </li>
+        <% } %>
+        <li class="nav-item">
+          <a class="nav-link" href="/books/genres">Genres</a>
+        </li>
+      </ul>
+    </div>
+    <div class="ml-auto">
+      <ul class="navbar-nav">
+        <% if(user){ %>
+        <div class="dropdown show">
+          <a
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-circle"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item"><%= user.name %> </a>
+
+            <a class="dropdown-item" href="/users/logout">Logout</a>
+          </div>
         </div>
-        <div class="ml-auto">
-          <ul class="navbar-nav">
-            <% if(user){ %>
-            <div class="dropdown show">
-              <a
-                class="btn btn-outline-info"
-                href="#"
-                role="button"
-                id="dropdownMenuLink"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-              <i class="fas fa-user-circle"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item"><%= user.name %> </a>
-            
+        <% }else{ %>
 
-             
-                <a class="dropdown-item" href="/users/logout">Logout</a>
-              </div>
-            </div>
-            <% }else{ %>
-
-            <div class="nav-item">
-              <a href="/users/login" class="nav-link">Sign In</a>
-            </div>
-            <% } %>
-          </ul>
+        <div class="nav-item">
+          <a href="/users/login" class="nav-link">Sign In</a>
         </div>
-      </div>
-    </nav>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+<script>
+  const links = document.querySelectorAll(".nav-link");
+  links.forEach((l) => {
+    console.log(l);
+    if (l.pathname === window.location.pathname) {
+      l.classList.add("active");
+    }
+  });
+</script>

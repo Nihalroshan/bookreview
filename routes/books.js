@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/book");
 const Comment = require("../models/comment");
-const auth = require('../middlewares/auth');
+const auth = require("../middlewares/auth");
 
 //Get all books
 router.get("/", async (req, res) => {
@@ -11,26 +11,34 @@ router.get("/", async (req, res) => {
 
   if (req.query.search !== null && req.query.search !== "") {
     const reg = new RegExp(req.query.search, "i");
-    books = await Book.find({
-      $or: [{ title: reg }, { genre: reg }, { author: reg }, { language: reg }],
-    });
+    if (req.query.by && req.query.by !== "All") {
+      books = await Book.find({ [req.query.by.toLowerCase()]: reg });
+    } else {
+      books = await Book.find({
+        $or: [
+          { title: reg },
+          { genre: reg },
+          { author: reg },
+          { language: reg },
+        ],
+      });
+    }
     let user = req.session.user;
     res.render("books/index", {
       books: books,
       user: user,
       searchOptions: req.query,
     });
-  }else{
-    res.redirect('/books')
+  } else {
+    res.redirect("/books");
   }
 });
 
 //new book
-router.get("/add",[auth], (req, res) => {
+router.get("/add", [auth], (req, res) => {
   let user = req.session.user;
   res.render("books/addBook", { book: new Book(), user: user });
 });
-  
 
 //Create a book
 router.post("/", async (req, res) => {
@@ -82,23 +90,33 @@ router.post("/:id", async (req, res) => {
   } catch {}
 });
 
+//delete a comment
+router.delete("/comment/:id", async (req, res) => {
+  const comment = await Comment.findById(req.params.id);
+  const bookId = comment.bookId;
+  comment.delete();
+  res.redirect("/books/" + bookId);
+});
+
+//like a comment
 router.post("/like/:id", async (req, res) => {
   const comment = await Comment.findById(req.params.id);
   if (!req.session.user) {
-    return;
+    return res.status(400).send("not signed in");
   }
   const user = comment.likes.find((u) => u == req.session.user._id);
   if (user) {
     const index = comment.likes.indexOf(user);
     comment.likes.splice(index, 1);
-    res.status(101).send("like removed");
+    res.send(JSON.stringify({ action: "removed" }));
   } else {
     comment.likes.push(req.session.user._id);
-    res.send("ok");
+    res.send(JSON.stringify({ action: "liked" }));
   }
   await comment.save();
 });
 
+//rate a book
 router.post("/rate/:id", async (req, res) => {
   const book = await Book.findById(req.params.id);
   let rating = book.rating.find((u) => u.user == req.session.user._id);
@@ -135,7 +153,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/:id/edit",[auth], async (req, res) => {
+//get book to edit
+router.get("/:id/edit", [auth], async (req, res) => {
   try {
     let user = req.session.user;
     const book = await Book.findById(req.params.id);
@@ -144,8 +163,8 @@ router.get("/:id/edit",[auth], async (req, res) => {
     res.redirect("/books");
   }
 });
-   
 
+//edit a book
 router.put("/:id", async (req, res) => {
   try {
     const book = await Book.findByIdAndUpdate(
@@ -169,6 +188,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//delete a book
 router.delete("/:id", async (req, res) => {
   try {
     const book = await Book.findByIdAndDelete(req.params.id);
