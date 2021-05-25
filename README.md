@@ -10,8 +10,9 @@ BFH/recLQAELKP8SHtG6q/2021
 ## Link to product walkthrough
 [link to video]
 ## How it Works ?
-1. Step 1
-2. Step 2
+1. A user can browse through any book and able to see the review and rating.
+2. Everybody can search for a book by Title,Author,Language and Genre.
+3. Only a registered user can add book , edit book , comment and rate book.
 ## Libraries used
     body-parser : 1.19.0,
     dotenv : 9.0.2,

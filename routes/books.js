@@ -158,10 +158,11 @@ router.get("/:id", async (req, res) => {
 
 //get book to edit
 router.get("/:id/edit", [auth], async (req, res) => {
+  const genres = await Genre.find()
   try {
     let user = req.session.user;
     const book = await Book.findById(req.params.id);
-    res.render("books/editBook", { book: book, user: user });
+    res.render("books/editBook", { book: book, user: user,genres:genres});
   } catch {
     res.redirect("/books");
   }
