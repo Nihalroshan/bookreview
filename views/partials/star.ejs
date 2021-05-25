@@ -36,7 +36,7 @@
   }
 </style>
 <% if(user){ %> 
-<ul id="<%= book.id %>" class="rating" >
+<ul id="<%= book.id %>" class="rating" style="margin-left: 27px;" >
   <% let rate; %> 
   <% let query =book.rating.find(r=> r.user == user._id) ; %> 
   <% if(query){ %>   

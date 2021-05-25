@@ -3,7 +3,11 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
   let user = req.session.user;
-  res.render("index", { user: user });
+  if (user) {
+    res.redirect("/books");
+  } else {
+    res.render("index", { user: user });
+  }
 });
 
 module.exports = router;
