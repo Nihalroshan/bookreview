@@ -8,7 +8,7 @@ BookBriefs is a website where users can share the details of books that they rea
 ## Team Id
 BFH/recLQAELKP8SHtG6q/2021
 ## Link to product walkthrough
-[link to video]
+https://www.loom.com/share/df5993561ccc44d19e981e335b7606f7
 ## How it Works ?
 1. A user can browse through any book and able to see the review and rating.
 2. Everybody can search for a book by Title,Author,Language and Genre.
