@@ -44,7 +44,7 @@
     class="d-flex"
     style="justify-content: center; position: relative"
   >
-    <div class="form-group col-md-2">
+    <div class="form-group">
       <select name="by" id="inputState" class="form-control">
         <option selected>All</option>
         <option>Title</option>
@@ -58,29 +58,27 @@
         id="search "
         oninput="getBooks(event)"
         name="search"
-        class="form-control me-sm-2"
+        class="form-control me-sm-2 search"
         type="text"
         placeholder="Search"
-        style="width: 30rem"
       />
     </div>
     <div class="col-auto">
-      <button class="btn btn-success my-2 my-sm-0" type="submit">
+      <button class="btn btn-success my-0" type="submit">
         <i class="fas fa-search"></i>
       </button>
     </div>
   </form>
   <div class="d-flex" style="justify-content: center; position: relative">
-    <ul
-      id="auto-complete"
-      class="list-group"
-      style="width: 40rem; position: absolute; z-index: 2"
-    ></ul>
+    <ul id="auto-complete" class="list-group search-dropdown"></ul>
   </div>
 
   <div class="row py-3">
     <% books.forEach(book => { %>
-    <div class="col-md-2 my-2">
+    <div
+      class="col-md-3 col-sm-4 col-12 col-lg-2 my-2"
+      style="display: flex; justify-content: center"
+    >
       <div class="card" style="border-radius: 0">
         <img
           style="height: 230px; border-radius: 0"

@@ -6,6 +6,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  min-width: 350px;
 }
 .auto-complete-img {
   width: 40px;
@@ -21,6 +22,8 @@ body {
   padding-top: 20px;
   padding-bottom: 30px;
 }
+
+
 
 #comment {
   width: 60rem;
@@ -158,4 +161,41 @@ h2 {
 h1 {
   font-size: 4rem;
   font-weight: 500;
+}
+
+.search-dropdown{
+  width: 40rem;
+  position: absolute;
+  z-index: 2;
+}
+
+@media only screen and (max-width: 660px) {
+  .welcome {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 20px;
+  }
+  .name{
+    font-size:20px;
+  }
+  .card {
+  width: 300px;
+  
+  }
+
+  .search-dropdown{
+    width: 20rem;
+  }
+
+  .details-image{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width:768px){
+  .search{
+    width: 30rem;
+  }
 }
