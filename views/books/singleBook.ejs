@@ -6,7 +6,7 @@
     <p class="text-center"><%= book.genre %></p>
   </div>
   <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 details-image">
       <img class="single-cover" src="<%= book.coverUrl %> " />
       <% if(book.getBook != ''){ %>
       <a
@@ -16,19 +16,22 @@
         target="_blank"
         ><i class="fas fa-shopping-cart"></i> GET THE BOOK
       </a>
-      
-        <% } %> <%- include('../partials/star.ejs') %>
-        
-      
+
+      <% } %> <%- include('../partials/star.ejs') %>
     </div>
     <div class="col-md-9">
       <div class="d-flex justify-content-around py-5">
-        <h6><strong>Author : </strong><%= book.author %></h6>
-        <h6><strong>Language : </strong><%= book.language %></h6>
-        <h6><strong>Year : </strong><%= book.year %></h6>
-        <h6>
-          <strong><%= book.isbn == ''?'':"ISBN no:" %> </strong><%= book.isbn %>
-        </h6>
+        <div class="col-6">
+          <h6><strong>Author : </strong><%= book.author %></h6>
+          <h6><strong>Language : </strong><%= book.language %></h6>
+        </div>
+        <div class="col-6">
+          <h6><strong>Year : </strong><%= book.year %></h6>
+          <h6>
+            <strong><%= book.isbn == ''?'':"ISBN no:" %> </strong><%= book.isbn
+            %>
+          </h6>
+        </div>
       </div>
       <p style="color: grey"><%= book.description %></p>
       <div class="d-flex justify-content-around" style="margin-top: 100px">
