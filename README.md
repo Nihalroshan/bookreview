@@ -24,7 +24,7 @@ https://www.loom.com/share/df5993561ccc44d19e981e335b7606f7
     method-override : 3.0.0,
     mongoose : 5.12.9
 ## How to configure
-Link to website : https://bookbriefs.herokuapp.com
+Link to website : https://bookbriefs.onrender.com/
 ## How to Run
 For running locally:
 1. Clone from git (https://github.com/Nihalroshan/bookreview.git)
